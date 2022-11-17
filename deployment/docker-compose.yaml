@@ -1,0 +1,129 @@
+version: '3'
+
+services:
+  my-app:
+    build:
+      context: .
+      dockerfile: deployment/dockerfiles/dockerfile-local
+    working_dir: /go/src/sharefood
+    container_name: my-app
+    hostname: my-app
+    networks:
+      - code-network
+    volumes:
+      - .:/go/src/sharefood
+    ports:
+      - 8081:8081
+    depends_on:
+      - mariadb
+      - kafka1
+
+  redis:
+    image: redis:4
+    container_name: redis
+    hostname: redis
+    ports:
+      - 6479:6379
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '2m'
+        max-file: '5'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+    networks:
+      - code-network
+
+  mariadb:
+    image: mariadb/server:10.3
+    restart: always
+    container_name: mariadb
+    hostname: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: brainlabs
+      MARIADB_ROOT_HOST: "%"
+      MARIADB_USER: admin
+      MARIADB_PASSWORD: brainlabs
+      TZ: "Asia/Jakarta"
+    volumes:
+      - mariadb:/var/lib/mysql
+    ports:
+      - 3307:3306
+    networks:
+      - code-network
+
+  elastic:
+     image: docker.elastic.co/elasticsearch/elasticsearch:6.6.2
+     container_name: elastic
+     restart: always
+     hostname: elastic
+     environment:
+       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+       - "discovery.type=single-node"
+     ports:
+       - 9300:9200
+     ulimits:
+       memlock:
+         soft: -1
+         hard: -1
+     networks:
+       - code-network
+     volumes:
+       - elastic:/usr/share/elasticsearch/data
+     depends_on:
+       - mariadb
+
+  kibana:
+     image: docker.elastic.co/kibana/kibana:6.6.2
+     container_name: kibana
+     hostname: kibana
+     restart: always
+     environment:
+       ELASTICSEARCH_HOSTS: http://elastic:9200
+       ELASTICSEARCH_URL: http://elastic:9200
+       SERVER_NAME: kibana.local
+     depends_on:
+       - mariadb
+       - elastic
+     networks:
+       - code-network
+     ports:
+       - 5601:5601
+
+  mongo:
+    image: mongo:4.2
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      TZ: "Asia/Jakarta"
+    volumes:
+      - mongo:/data/db
+    ports:
+      - 28017:27017
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 9081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: secret
+
+
+
+volumes:
+  mongo:
+    driver: local
+  elastic:
+    driver: local
+  mariadb:
+    driver: local
+
+networks:
+  code-network:
+    driver: bridge

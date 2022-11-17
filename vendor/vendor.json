@@ -1,0 +1,7 @@
+{
+    "rootPath": "sharefood",
+    "heroku": {
+        "install" : [ "./..." ],
+        "goVersion": "go1.18"
+    }
+}

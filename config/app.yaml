@@ -1,0 +1,79 @@
+app:
+  name: sharefood
+  port: 3000
+  timezone: Asia/Jakarta
+  debug: true
+  env: dev # dev | stg | prod
+  read_timeout_second: 15
+  write_timeout_second: 15
+  key: "${APP_KEY}"
+  default_lang: en
+  JWTSecret: hasidhiqwydbqwibddijasd
+
+logger:
+  name: sharefood # service name
+  level: "${LOGGER_LEVEL}" # trace | debug | info | warn | error | fatal | panic
+
+apm:
+  address: "${APM_ADDRESS}"
+  enable: ${APM_ENABLE}
+  name: ${APM_NAME}
+
+
+redis:
+  host: 127.0.0.1:6379
+  db: 0 # 0
+  password: PpRiciVyPaS5aTWra2PrII081MMP3D1269Uy5UjW
+  read_timeout_second: 1 # 1  second
+  write_timeout_second: 1 # 1  second
+  pool_size: 100 # 100
+  pool_timeout_second: 100 # 100
+  min_idle_conn: 10 # 10
+  idle_timeout_second: 240 # 240
+  route_by_latency: true # true
+  idle_frequency_check: 1 # 1
+  read_only: ${REDIS_READ_ONLY}
+  route_randomly: ${REDIS_ROUTE_RANDOMLY}
+  max_redirect: 3 # set 3 for default redis
+  cluster_mode: ${REDIS_CLUSTER_MODE}
+  tls_enable: ${REDIS_TLS_ENABLE}
+  insecure_skip_verify: ${REDIS_INSECURE_SKIP_VERIFY} # if tls_enable == true, this config use for tls insecure_skip_verify true or false
+
+db_write:
+  driver: postgres
+  host: db.mlunvqyqqjovlqjfzpqp.supabase.co
+  port: 5432
+  name: postgres # database name
+  user: postgres # database user
+  pass: pQjk7yFuWq6COYk3 # database password
+  max_open: 50
+  max_idle: 25
+  timeout_second: 10
+  life_time_ms: 300000
+  charset: utf8
+  timezone: Asia/Jakarta
+
+db_read:
+  driver: postgres
+  host: db.mlunvqyqqjovlqjfzpqp.supabase.co
+  port: 5432
+  name: postgres # database name
+  user: postgres # database user
+  pass: pQjk7yFuWq6COYk3 # database password
+  max_open: 50
+  max_idle: 25
+  timeout_second: 10
+  life_time_ms: 300000
+  charset: utf8
+  timezone: Asia/Jakarta
+
+
+pubsub:
+  account_path: "${PUBSUB_ACCOUNTPATH}"
+  project_id: "${PUBSUB_PROJECTID}"
+  topic: "${PUBSUB_TOPIC}"
+
+gcs:
+  account_path: "${GCS_ACCOUNTPATH}"
+  bucket: "${GCS_BUCKET}"
+  prefix: "${GCS_PREFIX}"

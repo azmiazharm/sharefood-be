@@ -1,0 +1,64 @@
+app:
+  name: ${APP_NAME}
+  port: ${APP_PORT}
+  timezone: ${APP_TIMEZONE}
+  debug: ${APP_DEBUG}
+  env: ${APP_ENV} # dev | stg | prod
+  read_timeout_second: ${APP_READ_TIMEOUT_SECOND}
+  write_timeout_second: ${APP_WRITE_TIMEOUT_SECOND}
+  key: "${APP_KEY}"
+  default_lang: "${APP_DEFAULT_LANG}"
+
+logger:
+  name: "${LOGGER_NAME}" # service name
+  level: "${LOGGER_LEVEL}" # trace | debug | info | warn | error | fatal | panic
+
+apm:
+  address: "${APM_ADDRESS}"
+  enable: ${APM_ENABLE}
+  name: ${APM_NAME}
+
+
+redis:
+  host: "${REDIS_HOST}"
+  db: ${REDIS_DB} # 0
+  password: "${REDIS_PASSWORD}"
+  read_timeout_second: ${REDIS_READ_TIMEOUT_SECOND} # 1  second
+  write_timeout_second: ${REDIS_WRITE_TIMEOUT_SECOND} # 1  second
+  pool_size: ${REDIS_POOL_SIZE} # 100
+  pool_timeout_second: ${REDIS_POOL_TIMEOUT_SECOND} # 100
+  min_idle_conn: ${REDIS_MIN_IDLE} # 10
+  idle_timeout_second: ${REDIS_IDLE_TIMEOUT_SECOND} # 240
+  route_by_latency: ${REDIS_ROUTE_BY_LATENCY} # true
+  idle_frequency_check: ${REDIS_IDLE_FREQUENCY_CHECK} # 1
+  read_only: ${REDIS_READ_ONLY}
+  route_randomly: ${REDIS_ROUTE_RANDOMLY}
+  max_redirect: ${REDIS_MAX_REDIRECT} # set 3 for default redis
+  cluster_mode: ${REDIS_CLUSTER_MODE}
+  tls_enable: ${REDIS_TLS_ENABLE}
+  insecure_skip_verify: ${REDIS_INSECURE_SKIP_VERIFY} # if tls_enable == true, this config use for tls insecure_skip_verify true or false
+
+write_db:
+  host: "${DB_WRITE_HOST}"
+  port: ${DB_WRITE_PORT}
+  name: "${DB_WRITE_DBNAME}" # database name
+  user: "${DB_WRITE_USERNAME}" # database user
+  pass: "${DB_WRITE_PASSWORD}" # database password
+  max_open: ${DB_WRITE_MAXOPEN}
+  max_idle: ${DB_WRITE_MAXIDLE}
+  timeout_second: ${DB_WRITE_TIMEOUT}
+  life_time_ms: ${DB_WRITE_LIFETIME}
+  charset: "${DB_WRITE_CHARSET}"
+
+read_db:
+  host: "${DB_READ_HOST}"
+  port: ${DB_READ_PORT}
+  name: "${DB_READ_DBNAME}" # database name
+  user: "${DB_READ_USERNAME}" # database user
+  pass: "${DB_READ_PASSWORD}" # database password
+  max_open: ${DB_READ_MAXOPEN}
+  max_idle: ${DB_READ_MAXIDLE}
+  timeout_second: ${DB_READ_TIMEOUT}
+  life_time_ms: ${DB_READ_LIFETIME}
+  charset: "${DB_READ_CHARSET}"
+

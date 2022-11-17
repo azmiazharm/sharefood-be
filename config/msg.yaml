@@ -1,0 +1,77 @@
+messages:
+  - code: 200
+    contents:
+      - lang: id
+        text: Sukses
+      - lang: en
+        text: Success
+
+  - code: 400
+    contents:
+      - lang: id
+        text: Parameter tidak sesuai.
+      - lang: en
+        text: The request parameter invalid
+
+  - code: 401
+    contents:
+      - lang: id
+        text: Gagal autentikasi
+      - lang: en
+        text: Authentication failure
+
+  - code: 404
+    contents:
+      - lang: id
+        text: Tidak ditemukan
+      - lang: en
+        text: Not found
+
+  - code: 408
+    contents:
+      - lang: id
+        text: Timeout
+      - lang: en
+        text: Request timeout
+
+  - code: 409
+    contents:
+      - lang: id
+        text: Terjadi duplikat, silahkan periksa input parameter.
+      - lang: en
+        text: Your request already exist, please check you request parameter.
+
+  - code: 422
+    contents:
+      - lang: id
+        text: Tidak dapat di proses
+      - lang: en
+        text: Unprocessable entity
+
+  - code: 429
+    contents:
+      - lang: id
+        text: Quota telah habis
+      - lang: en
+        text: The quota reach max limit
+
+  - code: 500
+    contents:
+      - lang: id
+        text: Telah terjadi kesalahan, silahkan coba lagi
+      - lang: en
+        text: Something went wrong, please try again
+
+  - code: 503
+    contents:
+      - lang: id
+        text: Server sibuk
+      - lang: en
+        text: Server too busy
+
+  - code: 520
+    contents:
+      - lang: id
+        text: Kesalahan tidak diketahui
+      - lang: en
+        text: Unknown Error
